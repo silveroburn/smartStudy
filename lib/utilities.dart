@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:smartstudy/CreateProject.dart';
+import 'package:smartstudy/browse.dart';
 import 'package:smartstudy/chats.dart';
 import 'package:smartstudy/profile.dart';
 
@@ -52,7 +54,7 @@ Widget infoDump(String text, String second, Color inputColor, double size, int w
   }
 
   String newText= text + ':';
-  Color newColor = inputColor.withAlpha(200);
+  Color newColor = inputColor.withAlpha(150);
 
   return Wrap(
     spacing: 10,
@@ -83,7 +85,14 @@ Widget longPressMenu(BuildContext context){
             child: customText('About Me', Color.fromARGB(255, 200, 100, 100), 30, 1)
           ),
           SizedBox(height: 15,),
-          customText('Browse Projects', Colors.white.withAlpha(180), 30, 1),
+          GestureDetector(
+            onTap: (){
+              Navigator.push(context, MaterialPageRoute(builder: (context){
+                return Browse();
+              }));
+            },
+            child: customText('Browse Projects', Colors.white.withAlpha(180), 30, 1)
+          ),
           SizedBox(height: 15,),
           GestureDetector(
             onTap: (){
@@ -93,7 +102,14 @@ Widget longPressMenu(BuildContext context){
             },
             child: customText('Chats', Colors.white.withAlpha(180), 30, 1)),
           SizedBox(height: 15,),
-          customText('Create Project', Colors.white.withAlpha(180), 30, 1),
+          GestureDetector(
+            onTap: (){
+              Navigator.push(context, MaterialPageRoute(builder: (context){
+                return store();
+              }));
+            },
+            child: customText('Create Project', Colors.white.withAlpha(180), 30, 1)
+          ),
         ],
       ),
     ),

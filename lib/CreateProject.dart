@@ -11,8 +11,20 @@ class store extends StatefulWidget{
 
 class _CreateProject extends State<store> {
   var count = 2;
-  Widget _createField(String text){
+  TextEditingController c1 = TextEditingController();
+  TextEditingController c2 = TextEditingController();
+  List<String> l1 = [];
+  List<DropdownMenuItem> d1 = [DropdownMenuItem(value: 'text', child: customText('Some text', Colors.white, 20, 1),)];
+
+  Widget _createField(String text, TextEditingController controller){
     return TextField(
+      textInputAction: TextInputAction.go,
+      onSubmitted:(value){
+        l1.add(c1.text);
+        setState(() {
+        });
+      },
+      controller: controller,
       cursorColor: Colors.white,
       style: GoogleFonts.poppins(color: Colors.white, fontSize: 18, fontWeight: FontWeight.w200),
       decoration: InputDecoration(
@@ -65,7 +77,11 @@ class _CreateProject extends State<store> {
                     SizedBox(height: 20,),
                     customText('Name of the Project', Colors.white, 20, 0),
                     SizedBox(height: 10,),
-                    _createField('Enter the name'),
+                    _createField('Enter the name', c2),
+                    SizedBox(height: 20,),
+                    customText('Project Description', Colors.white, 20, 0),
+                    SizedBox(height: 10,),
+                    _createField('Enter the project Description', c2),
                     SizedBox(height: 20,),
                     Row(
                       children: [
@@ -95,12 +111,13 @@ class _CreateProject extends State<store> {
                       ]
                     ),
                     SizedBox(height: 10,),
+                    // DropdownButton(items: , onChanged: onChanged),
                     Column(
                       children:
                         List.generate(count, (context){
                           return Column(
                             children: [
-                              _createField('Enter the Reg No.'),
+                              _createField('Enter the Reg No.', c2),
                               SizedBox(height: 10,),
                             ],
                           );
@@ -110,9 +127,50 @@ class _CreateProject extends State<store> {
                     SizedBox(height: 10,),
                     customText('Est. Time for Completion', Colors.white, 20, 0),
                     SizedBox(height: 10,),
-                    _createField('Enter the #months (if less then <1)'),
+                    _createField('Enter the #months (if less then <1)', c2),
+                    SizedBox(height: 20,),
+                    customText('Tech Stack Required', Colors.white, 20, 0),
                     SizedBox(height: 10,),
-                    // _createField('Enter the name'),    
+                    _createField('Enter the Tech Stack', c1),
+                    SizedBox(height: 10,),
+                    SingleChildScrollView(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: List.generate(l1.length, (index){
+                          return Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Container(
+                                padding: EdgeInsets.only(left: 5, right: 5),
+                                decoration: BoxDecoration(
+                                  color: Colors.white30,
+                                  borderRadius: BorderRadius.circular(5),
+                                ),
+                                child: customText(l1[index], Colors.white, 20, 1),
+                              ),
+                              SizedBox(height: 10,),
+                            ],
+                          );
+                        }),
+                      ),
+                    ),
+                    SizedBox(height: 10,),
+                    Align(
+                      alignment: Alignment.center,
+                      child: GestureDetector(
+                        onTap: (){
+                          
+                        },
+                        child: Container(
+                          padding: EdgeInsets.only(left: 5, right: 5),
+                          decoration: BoxDecoration(
+                            color: Color.fromARGB(255, 200, 100, 100),
+                            borderRadius: BorderRadius.circular(5),
+                          ),
+                          child: customText('Confirm', Colors.white, 30, 1)
+                        ),
+                      ),
+                    )    
                   ],
                 ),
               ),
