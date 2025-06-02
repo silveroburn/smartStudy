@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'utilities.dart';
 
 class Chats extends StatelessWidget{
@@ -52,6 +50,7 @@ class Chats extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
+    TextEditingController chatBox = TextEditingController();
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
     return Scaffold(
       key: _scaffoldKey,
@@ -124,7 +123,7 @@ class Chats extends StatelessWidget{
               chatObject('right', 'well what is it? out with it'),
               chatObject('left', 'Forget it.. I have changed my MIND'),
               chatObject('left', 'What the \$\$\$\$\$'),
-              tFields(context, 'Type message'),
+              tFields(context, 'Type message', chatBox),
               SizedBox(height: 10,)
             ],
           ),

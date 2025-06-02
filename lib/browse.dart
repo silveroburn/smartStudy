@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:smartstudy/projectInfo.dart';
 import 'utilities.dart';
 
@@ -55,6 +54,7 @@ class Browse extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
   String members = value.toString();
+  TextEditingController searchBar = TextEditingController();
     return Scaffold(
       backgroundColor: Colors.black,
       body: Padding(
@@ -76,7 +76,7 @@ class Browse extends StatelessWidget{
                 ],
               ),
               SizedBox(height: 30,),
-              tFields(context, 'Search by Name'),
+              tFields(context, 'Search by Name', searchBar),
               SizedBox(height: 20,),
               Expanded(
                 child: SingleChildScrollView(
