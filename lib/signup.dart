@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:smartstudy/qHandler.dart';
 import 'package:smartstudy/signin.dart';
 import 'package:smartstudy/utilities.dart';
 
@@ -8,6 +9,10 @@ class signup extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
+    TextEditingController usernameController = TextEditingController();
+    TextEditingController emailIdController = TextEditingController();
+    TextEditingController regNoController = TextEditingController();
+    TextEditingController passwordController = TextEditingController();
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
@@ -39,11 +44,13 @@ class signup extends StatelessWidget{
               SizedBox(height: 90,),
               Column(
                 children: [
-                  tFields(context, 'Email ID'),
+                  tFields(context, 'Username', usernameController),
                   SizedBox(height: 20,),
-                  tFields(context, 'Password'),
+                  tFields(context, 'Email ID', emailIdController),
                   SizedBox(height: 20,),
-                  tFields(context, 'Reg No'),
+                  tFields(context, 'Password', passwordController),
+                  SizedBox(height: 20,),
+                  tFields(context, 'Reg No', regNoController),
                 ],
               ),
         
@@ -53,8 +60,13 @@ class signup extends StatelessWidget{
                   borderRadius: BorderRadius.circular(5)
                 ),
                 child: MaterialButton(
-                  onPressed: (){
-                  
+                  onPressed: ()async{
+                    var value = await signupQ(regNoController.text, emailIdController.text, usernameController.text, passwordController.text, context);
+                    if (value == 1){
+                      Navigator.push(context, MaterialPageRoute(builder: (context){
+                        return signin();
+                      }));
+                    }
                   },
                   color: Colors.transparent,
                   child: Text('Sign up', style: GoogleFonts.pixelifySans(color: Color.fromARGB(255, 200, 100, 100), fontSize: 30, fontWeight: FontWeight.w300),),

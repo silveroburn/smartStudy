@@ -5,10 +5,13 @@ import 'package:smartstudy/browse.dart';
 import 'package:smartstudy/chats.dart';
 import 'package:smartstudy/profile.dart';
 
-Widget tFields (BuildContext context, String hint){
+Widget tFields (BuildContext context, String hint, TextEditingController controller){
   return Padding(
-    padding: EdgeInsets.only(left: 10, right: 10),
+    padding: EdgeInsets.only(left: 20, right: 20),
     child: TextField(
+      controller: controller,
+      cursorColor: Colors.white,
+      style: GoogleFonts.poppins(color: Colors.white, fontSize: 20, fontWeight: FontWeight.w200),
       decoration: InputDecoration(  
         hintText: hint, 
         hintStyle: GoogleFonts.pixelifySans(color: Colors.white, fontSize: 20, fontWeight: FontWeight.w300),
@@ -18,7 +21,6 @@ Widget tFields (BuildContext context, String hint){
         ),
         focusedBorder: UnderlineInputBorder(
           borderSide: BorderSide(
-            
             color: Color.fromARGB(255, 200, 100, 100),
           )
         )
