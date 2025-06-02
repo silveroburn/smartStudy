@@ -42,16 +42,19 @@ class signup extends StatelessWidget{
                 child: Text('WELCOME ABOARD', style: GoogleFonts.pixelifySans(color: Color.fromARGB(255, 200, 100, 100), fontSize: 55, letterSpacing: 5, height: 1),),
               ),
               SizedBox(height: 90,),
-              Column(
-                children: [
-                  tFields(context, 'Username', usernameController),
-                  SizedBox(height: 20,),
-                  tFields(context, 'Email ID', emailIdController),
-                  SizedBox(height: 20,),
-                  tFields(context, 'Password', passwordController),
-                  SizedBox(height: 20,),
-                  tFields(context, 'Reg No', regNoController),
-                ],
+              Padding(
+                padding: EdgeInsets.only(left: 20, right: 20),
+                child: Column(
+                  children: [
+                    tFields(context, 'Username', usernameController),
+                    SizedBox(height: 20,),
+                    tFields(context, 'Email ID', emailIdController),
+                    SizedBox(height: 20,),
+                    tFields(context, 'Password', passwordController),
+                    SizedBox(height: 20,),
+                    tFields(context, 'Reg No', regNoController),
+                  ],
+                ),
               ),
         
               SizedBox(height: 20,),

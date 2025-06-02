@@ -1,6 +1,6 @@
+//reliable way for storing the current login regNo.. currently I am storing it by logging in everytime.. 
+
 import 'package:flutter/material.dart';
-import 'package:smartstudy/profile.dart';
-import 'package:smartstudy/signin.dart';
 import 'package:smartstudy/signup.dart';
 
 void main(){

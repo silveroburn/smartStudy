@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:smartstudy/qHandler.dart';
+import 'package:smartstudy/temporaryData.dart';
 import 'package:smartstudy/utilities.dart';
 
 class Profile extends StatelessWidget {
@@ -30,13 +31,13 @@ class Profile extends StatelessWidget {
                 ],
               ),
               SizedBox(height: 40,),
-              infoDump('Name', 'Ashutosh Singh Naruka', Colors.white, fSize, 2),
+              infoDump('Name', tempName, Colors.white, fSize, 2),
               SizedBox(height: 10,),
-              infoDump('Year', 'IIIrd', Colors.white, fSize, 2),
+              infoDump('Year', tempYear.toString(), Colors.white, fSize, 2),
               SizedBox(height: 10,),
-              infoDump('Reg No', 'RA2211003011127', Colors.white, fSize, 2),
+              infoDump('Reg No', curUser, Colors.white, fSize, 2),
               SizedBox(height: 10,),
-              infoDump('Department', 'CSE Core', Colors.white, fSize, 2),
+              infoDump('Department', tempDepartment, Colors.white, fSize, 2),
               SizedBox(height: 30,),
             
             
