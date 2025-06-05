@@ -50,7 +50,7 @@ class Additionalinfo extends StatelessWidget{
               onTap: () async {
                 print("adding reg no: " + curUser);
                 await addAdditionalInfo(curUser, int.parse(yearController.text), DepartmentController.text, skillsController.text, context);
-                await getAboutMeInfo(curUser);
+                await getAboutMeInfo();
                 Navigator.push(context, MaterialPageRoute(builder: (context){
                   return Profile();
                 }));

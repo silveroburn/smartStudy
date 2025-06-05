@@ -7,6 +7,34 @@ import 'package:smartstudy/utilities.dart';
 
 String curUser = "";
 
+Future<int> CreateProjectData(String pName, String pDes, List<String> pMembers, int pMaxMembers, int pTimeToCompletion, String pTechStack, BuildContext context) async {
+  final url = Uri.parse("http://192.168.29.223:5000/createProject");
+
+  final req = await http.post(
+    url, 
+    headers: {'Content-Type' : 'Application/json'},
+    body: json.encode(
+      {
+        'regNo' : curUser,
+        'pName' : pName,
+        'pDes' : pDes,
+        'pMembers' : pMembers,
+        'pMaxMembers' : pMaxMembers,
+        'pTimeToComplete' : pTimeToCompletion,
+        'pTechStack' : pTechStack
+      }
+    )
+  );
+
+  if (req.statusCode == 201){
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: customText('Successfully published the project', Colors.white, 15, 1))
+    );
+    return 1;
+  }
+  return 0;
+}
+
 Future<int> signupQ (String regNo, String emailId, String username, String password, BuildContext context) async {
   final url = Uri.parse("http://192.168.29.223:5000/signup");
 
@@ -106,7 +134,7 @@ Future<void> addAdditionalInfo(String regNo, int year, String department, String
   );
 }
 
-Future<void> getAboutMeInfo(String regNo) async {
+Future<void> getAboutMeInfo() async {
   final url = Uri.parse("http://192.168.29.223:5000/getAboutMe");
 
   final req = await http.post(
@@ -114,7 +142,7 @@ Future<void> getAboutMeInfo(String regNo) async {
     headers: {'Content-Type' : 'Application/json'},
     body: json.encode(
       {
-        'regNo' : regNo
+        'regNo' : curUser
       }
     )
   );
@@ -134,10 +162,75 @@ Future<void> getAboutMeInfo(String regNo) async {
     print('Nothing came: ');
     print(jsonDecode(req.body));
   }
+}
 
+Future<void> getBrowseInfo() async {
+  final url = Uri.parse("http://192.168.29.223:5000/getBrowse");
+
+  final req = await http.post(
+    url,
+    headers: {'Content-Type' : 'Application/json'},
+    body: json.encode(
+      {
+        'regNo' : curUser
+      }
+    )
+  );
+  
+  if (req.statusCode == 200){
+    print('Something came: ');
+    print(jsonDecode(req.body));
+    var m = jsonDecode(req.body);
+    print(m['data']);
+    List<dynamic> finalData = m['data'];
+    print("this is final Data");
+    print(finalData.length);
+    updateBrowseList(finalData);
+    // print("These are tempSkills" + tempSkills);
+  }
+  else{
+    print('Nothing came: Browse');
+    print(jsonDecode(req.body));
+  }
+}
+
+Future<List<dynamic>> exploreInfo(int projectId) async {
+  final url = Uri.parse("http://192.168.29.223:5000/exploreInfo");
+
+  final req = await http.post(
+    url, 
+    headers: {'Content-Type' : 'Application/json'},
+    body: json.encode(
+      {
+        'projectId' : projectId
+      }
+    )
+  );
+
+  print("inside explore Info: something came");
+  if (req.statusCode == 200){
+    var m = jsonDecode(req.body);
+    List<dynamic> exploreInfoData = m['data'];
+    print(exploreInfoData);
+    dynamic projectName = m['projectName'];
+    print(projectName);
+    exploreInfoData.add(projectName); 
+    dynamic members = m['members'];
+    exploreInfoData.add(members);
+    print(exploreInfoData); 
+    return exploreInfoData;
+  }
+  else{
+    print("nothing came");
+    return [];
+  }
 }
 
 void updateCurUser(String regNo) async {
   print("updated cur user: " + regNo);
   curUser = regNo;
+}
+
+void updateBrowseList(List<dynamic> l) async {
+  browsable = l;
 }

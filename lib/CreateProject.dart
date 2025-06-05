@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'qHandler.dart';
 import 'utilities.dart';
 
 class store extends StatefulWidget{
@@ -10,17 +11,21 @@ class store extends StatefulWidget{
 }
 
 class _CreateProject extends State<store> {
-  var count = 2;
-  TextEditingController c1 = TextEditingController();
-  TextEditingController c2 = TextEditingController();
+  var count = 1;
+  TextEditingController pNameController = TextEditingController();
+  TextEditingController pDesController = TextEditingController();
+  TextEditingController pMaxMembersController = TextEditingController();
+  TextEditingController pTimeToCompletionController = TextEditingController();
+  TextEditingController pTechStackController = TextEditingController();
   List<String> l1 = [];
-  List<DropdownMenuItem> d1 = [DropdownMenuItem(value: 'text', child: customText('Some text', Colors.white, 20, 1),)];
+  List<TextEditingController> pTeamMembersController = [];
+  // List<DropdownMenuItem> d1 = [DropdownMenuItem(value: 'text', child: customText('Some text', Colors.white, 20, 1),)];
 
   Widget _createField(String text, TextEditingController controller){
     return TextField(
       textInputAction: TextInputAction.go,
       onSubmitted:(value){
-        l1.add(c1.text);
+        l1.add(controller.text);
         setState(() {
         });
       },
@@ -46,13 +51,38 @@ class _CreateProject extends State<store> {
     );
   }
 
-  @override
-  void initState(){
-    super.initState();
-
-    count = 1;
+  void updateMemberController(int count, List<TextEditingController> l){
+    if (l.length < count){
+      for (int i = l.length; i < count; i++){
+        l.add(TextEditingController());
+      }
+    }
+    else if (l.isNotEmpty && count < l.length){
+      while (l.length > count){
+        l.removeLast().dispose();
+      }
+    }
   }
-  
+
+  @override
+  void initState() {
+    super.initState();
+    updateMemberController(count, pTeamMembersController);
+  }
+
+  @override
+  void dispose() {
+    pNameController.dispose();
+    pDesController.dispose();
+    pMaxMembersController.dispose();
+    pTimeToCompletionController.dispose();
+    pTechStackController.dispose();
+    for (var controller in pTeamMembersController) {
+      controller.dispose();
+    }
+    super.dispose();
+  }
+
   @override 
   Widget build(BuildContext context) {
     return Scaffold(
@@ -84,11 +114,11 @@ class _CreateProject extends State<store> {
                       SizedBox(height: 20,),
                       customText('Name of the Project', Colors.white, 20, 0),
                       SizedBox(height: 10,),
-                      _createField('Enter the name', c2),
+                      _createField('Enter the name', pNameController),
                       SizedBox(height: 20,),
                       customText('Project Description', Colors.white, 20, 0),
                       SizedBox(height: 10,),
-                      _createField('Enter the project Description', c2),
+                      _createField('Enter the project Description', pDesController),
                       SizedBox(height: 20,),
                       Row(
                         children: [
@@ -97,6 +127,7 @@ class _CreateProject extends State<store> {
                           GestureDetector(
                             onTap: (){
                               count++;
+                              updateMemberController(count, pTeamMembersController);
                               setState(() {
                               });
                             },
@@ -109,6 +140,7 @@ class _CreateProject extends State<store> {
                               }
                               else{
                                 count--;
+                                updateMemberController(count, pTeamMembersController);
                               }
                               setState(() {
                               });
@@ -121,10 +153,10 @@ class _CreateProject extends State<store> {
                       // DropdownButton(items: , onChanged: onChanged),
                       Column(
                         children:
-                          List.generate(count, (context){
+                          List.generate(count, (index){
                             return Column(
                               children: [
-                                _createField('Enter the Reg No.', c2),
+                                _createField('Enter the Reg No.', pTeamMembersController[index]),
                                 SizedBox(height: 10,),
                               ],
                             );
@@ -132,13 +164,17 @@ class _CreateProject extends State<store> {
                         ),
                       ),
                       SizedBox(height: 10,),
+                      customText('max # team members allowed ', Colors.white, 20, 0),
+                      SizedBox(height: 10,),
+                      _createField('Enter the maximum number', pMaxMembersController),
+                      SizedBox(height: 20,),
                       customText('Est. Time for Completion', Colors.white, 20, 0),
                       SizedBox(height: 10,),
-                      _createField('Enter the #months (if less then <1)', c2),
+                      _createField('Enter the #months (if less then <1)', pTimeToCompletionController),
                       SizedBox(height: 20,),
                       customText('Tech Stack Required', Colors.white, 20, 0),
                       SizedBox(height: 10,),
-                      _createField('Enter the Tech Stack', c1),
+                      _createField('Enter the Tech Stack', pTechStackController),
                       SizedBox(height: 10,),
                       SingleChildScrollView(
                         child: Column(
@@ -165,8 +201,9 @@ class _CreateProject extends State<store> {
                       Align(
                         alignment: Alignment.center,
                         child: GestureDetector(
-                          onTap: (){
-                            
+                          onTap: () async {
+                            List<String> pTempMembersList = pTeamMembersController.map((c){return c.text;}).toList();
+                            await CreateProjectData(pNameController.text, pDesController.text, pTempMembersList, int.parse(pMaxMembersController.text), int.parse(pTimeToCompletionController.text), pTechStackController.text, context);
                           },
                           child: Container(
                             padding: EdgeInsets.only(left: 5, right: 5),
@@ -174,7 +211,7 @@ class _CreateProject extends State<store> {
                               color: Color.fromARGB(255, 200, 100, 100),
                               borderRadius: BorderRadius.circular(5),
                             ),
-                            child: customText('Confirm', Colors.white, 30, 1)
+                            child: customText('Publish', Colors.white, 30, 1)
                           ),
                         ),
                       )    

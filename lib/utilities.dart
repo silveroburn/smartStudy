@@ -5,6 +5,7 @@ import 'package:smartstudy/additionalInfo.dart';
 import 'package:smartstudy/browse.dart';
 import 'package:smartstudy/chats.dart';
 import 'package:smartstudy/profile.dart';
+import 'package:smartstudy/qHandler.dart';
 
 Widget tFields (BuildContext context, String hint, TextEditingController controller){
   return TextField(
@@ -88,7 +89,7 @@ Widget longPressMenu(BuildContext context){
           GestureDetector(
             onTap: (){
               Navigator.push(context, MaterialPageRoute(builder: (context){
-                return Browse();
+                return browseStore();
               }));
             },
             child: customText('Browse Projects', Colors.white.withAlpha(180), 30, 1)

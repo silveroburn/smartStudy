@@ -77,7 +77,7 @@ class signin extends StatelessWidget{
                         }));
                       }
                       else{
-                        await getAboutMeInfo(curUser);
+                        await getAboutMeInfo();
                         Navigator.push(context, MaterialPageRoute(builder: (context){
                           return Profile();
                         }));
