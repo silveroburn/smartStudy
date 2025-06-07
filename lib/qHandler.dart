@@ -2,10 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'temporaryData.dart';
-
 import 'package:smartstudy/utilities.dart';
-
-String curUser = "";
 
 Future<int> CreateProjectData(String pName, String pDes, List<String> pMembers, int pMaxMembers, int pTimeToCompletion, String pTechStack, BuildContext context) async {
   final url = Uri.parse("http://192.168.29.223:5000/createProject");

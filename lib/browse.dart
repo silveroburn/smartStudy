@@ -3,6 +3,7 @@ import 'package:smartstudy/temporaryData.dart';
 import 'qHandler.dart';
 import 'package:smartstudy/projectInfo.dart';
 import 'utilities.dart';
+import 'strictLogin.dart';
 
 class browseStore extends StatefulWidget{
   const browseStore({super.key});
@@ -80,6 +81,9 @@ class _browse extends State<browseStore>{
   @override
   Widget build(BuildContext context) {
   // String members = value.toString();
+    if (curUser == ""){
+      return Strictlogin();
+    }
     return Scaffold(
       backgroundColor: Colors.black,
       body: Padding(

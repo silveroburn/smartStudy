@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:smartstudy/chats.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'utilities.dart';
+import 'temporaryData.dart';
+import 'strictLogin.dart';
 import 'qHandler.dart';
 
 class projectInfoStore extends StatefulWidget{
@@ -32,6 +34,9 @@ class _Projectinfo extends State<projectInfoStore> {
 
   @override
   Widget build(BuildContext context) {
+    if (curUser == ""){
+      return Strictlogin();
+    }
     print("Inside the build nowwwww");
 
     if (projectInfoData.isEmpty) {

@@ -2,12 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:smartstudy/profile.dart';
 import 'package:smartstudy/qHandler.dart';
 import 'package:smartstudy/utilities.dart';
+import 'temporaryData.dart';
+import 'strictLogin.dart';
 
 class Additionalinfo extends StatelessWidget{
   const Additionalinfo({super.key});
 
   @override 
   Widget build (BuildContext context){
+    if (curUser == ""){
+      return Strictlogin();
+    }
     TextEditingController yearController = TextEditingController();
     TextEditingController DepartmentController = TextEditingController();
     TextEditingController skillsController = TextEditingController();

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'qHandler.dart';
+import 'temporaryData.dart';
+import 'strictLogin.dart';
 import 'utilities.dart';
 
 class store extends StatefulWidget{
@@ -85,6 +87,9 @@ class _CreateProject extends State<store> {
 
   @override 
   Widget build(BuildContext context) {
+    if (curUser == ""){
+      return Strictlogin();
+    }
     return Scaffold(
       backgroundColor: Colors.black,
       body: Padding(

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'utilities.dart';
+import 'temporaryData.dart';
+import 'strictLogin.dart';
 
 class Chats extends StatelessWidget{
   const Chats({super.key});
@@ -50,6 +52,9 @@ class Chats extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
+    if (curUser == ""){
+      return Strictlogin();
+    }
     TextEditingController chatBox = TextEditingController();
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
     return Scaffold(

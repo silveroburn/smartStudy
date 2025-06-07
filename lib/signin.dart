@@ -4,6 +4,7 @@ import 'package:smartstudy/additionalInfo.dart';
 import 'package:smartstudy/profile.dart';
 import 'package:smartstudy/qHandler.dart';
 import 'package:smartstudy/signup.dart';
+import 'temporaryData.dart';
 import 'package:smartstudy/stateInfo.dart';
 import 'package:smartstudy/utilities.dart';
 

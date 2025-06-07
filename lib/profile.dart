@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:smartstudy/qHandler.dart';
+import 'package:smartstudy/signin.dart';
+import 'package:smartstudy/strictLogin.dart';
 import 'package:smartstudy/temporaryData.dart';
 import 'package:smartstudy/utilities.dart';
 
@@ -8,9 +10,17 @@ class Profile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
     double fSize = 20;
+    if (curUser == ""){
+      return Strictlogin();
+    }
     return Scaffold(
+      key: _scaffoldKey,
       backgroundColor: Colors.black,
+      drawer: Drawer(
+        backgroundColor: Color.fromARGB(255, 50, 50, 50),
+      ),
       body: Padding(
         padding: EdgeInsets.only(left: 20, top: 30, right: 20),
         child: GestureDetector(
@@ -28,6 +38,25 @@ class Profile extends StatelessWidget {
                   customText('>', Color.fromARGB(255, 200, 100, 100), 40, 1),
                   customText(' About Me', Colors.white, 40, 1),
                   customText(' .', Color.fromARGB(255, 200, 100, 100), 40, 1),
+                  Expanded(
+                    child: SizedBox()
+                  ),
+                  GestureDetector(
+                    onTap: () async {
+                      _scaffoldKey.currentState!.openDrawer();
+                    },
+                    child: Icon(Icons.message_outlined, color: Colors.white, size: 30,)
+                  ),
+                  SizedBox(width: 20,),
+                  GestureDetector(
+                    onTap: () async {
+                      await releaseLoginId();
+                      Navigator.push(context, MaterialPageRoute(builder: (context){
+                        return signin();
+                      }));
+                    },
+                    child: Icon(Icons.logout_rounded, color: Colors.white, size: 30,)
+                  )
                 ],
               ),
               SizedBox(height: 40,),

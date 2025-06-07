@@ -6,6 +6,8 @@ import 'package:smartstudy/browse.dart';
 import 'package:smartstudy/chats.dart';
 import 'package:smartstudy/profile.dart';
 import 'package:smartstudy/qHandler.dart';
+import 'package:smartstudy/strictLogin.dart';
+import 'temporaryData.dart';
 
 Widget tFields (BuildContext context, String hint, TextEditingController controller){
   return TextField(
@@ -66,6 +68,9 @@ Widget infoDump(String text, String second, Color inputColor, double size, int w
   );
 }
 
+Future<void> releaseLoginId () async {
+  curUser = "";
+}
 
 Widget longPressMenu(BuildContext context){
   return AlertDialog(
@@ -111,6 +116,7 @@ Widget longPressMenu(BuildContext context){
             },
             child: customText('Create Project', Colors.white.withAlpha(180), 30, 1)
           ),
+          SizedBox(height: 15,),
         ],
       ),
     ),
